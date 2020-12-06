@@ -8,7 +8,7 @@ fun main() {
     val groups = parseFile("$resourcePath/$inputFilename")
     println("nr of groups in file:  ${groups.size}")
 
-//    part1(groups)
+    part1(groups)
 
     part2(groups)
 }
@@ -25,7 +25,7 @@ private fun part1(groups: List<String>) {
 private fun part2(groups: List<String>) {
     println("Part 2: ")
 
-    // Voor elke letter, +1 als deze letter in elke subgroup voorkomt.
+    // For each letter, +1 if this letter is included each sub group
     val totalSum = groups.map { group ->
         val persons = group.split("\n")
         val groupLetters = group.replace("\n", "").trim().toCharArray().toSet()

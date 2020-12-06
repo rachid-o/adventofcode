@@ -2,21 +2,18 @@ package `2020`
 
 import java.io.File
 
-
 fun main() {
     val inputFilename = "day_1.txt"
-
     println("Reading file $resourcePath/$inputFilename")
     val expenseReport = File("$resourcePath/$inputFilename")
-            .readLines().map { it.toInt() }
+        .readLines()
+        .map { it.toInt() }
 
     println("expenseReport size:  ${expenseReport.size}")
 
     part1(expenseReport)
 
     part2(expenseReport)
-
-
 }
 
 private fun part1(expenseReport: List<Int>) {

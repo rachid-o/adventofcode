@@ -6,7 +6,6 @@ import java.io.File
 fun main() {
     val inputFilename = "day_4.txt"
     val passports = parseFile("$resourcePath/$inputFilename")
-//    passports.forEach { println(it)}
 
     println("nr of passports in file:  ${passports.size}")
 
@@ -22,8 +21,6 @@ private fun part2(passports: List<Map<String, String>>, requiredFields: Set<Stri
     val validPassports = passports
         .filter { it.keys.containsAll(requiredFields) }
         .filter { isValid(it, validEyeColors) }
-
-//    validPassports.forEach { println(it) }
 
     println("Valid passports: ${validPassports.size}")
 }
@@ -65,7 +62,6 @@ private fun isValid(passport: Map<String, String>, validEyeColors: Set<String>):
     }
 }
 
-
 private fun part1(passports: List<Map<String, String>>, requiredFields: Set<String>) {
     println("Part 1: ")
     val validPassports = passports.count { p ->
@@ -74,19 +70,16 @@ private fun part1(passports: List<Map<String, String>>, requiredFields: Set<Stri
     println("Passports with all fields present: $validPassports")
 }
 
-
-
 private fun parseFile(inputFile: String): List<Map<String, String>> {
     println("Reading file $inputFile")
-    val fileContents = File(inputFile).readText()
-    val txtPassports = fileContents.split("\n\n")
+    return File(inputFile).readText()
+        .split("\n\n")
         .map { it.replace("\n", " ").trim() }
-    val passports = txtPassports.map {
-        val fields = it.split(" ")
-        fields.map {
-            val pair = it.split(":")
-            pair[0] to pair[1]
+        .map {
+            val fields = it.split(" ")
+            fields.map {
+                val pair = it.split(":")
+                pair[0] to pair[1]
         }.toMap()
     }
-    return passports
 }

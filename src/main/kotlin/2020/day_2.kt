@@ -12,12 +12,12 @@ fun main() {
     println("file size:  ${lines.size}")
 
     part1(lines)
+
     part2(lines)
 }
 
 private fun part1(lines: List<String>) {
     println("Part 1: ")
-//    lines.forEach { println(it) }
     val parsedLines = lines.map { parseLine(it) }
     println("Valid passwords part 1: " + parsedLines.count { it.isValidPart1() })
 }
@@ -25,12 +25,7 @@ private fun part1(lines: List<String>) {
 private fun part2(lines: List<String>) {
     println("Part 2: ")
     val parsedLines = lines.map { parseLine(it) }
-//    parsedLines.forEach { println(it) }
     println("Valid passwords part 2: " + parsedLines.count { it.isValidPart2() })
-//    parsedLines.filterNot { it.isValidPart2() }.forEach {
-//        println("$it  (${it.password.length})")
-//    }
-//    println("Valid passwords part 2: " + )
 }
 
 

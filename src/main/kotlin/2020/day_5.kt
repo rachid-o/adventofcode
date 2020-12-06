@@ -9,7 +9,9 @@ fun main() {
     val lines = File("$resourcePath/$inputFilename").readLines()
 
     println("nr of lines in file:  ${lines.size}")
-//    part1(lines)
+
+    part1(lines)
+
     part2(lines)
 }
 
