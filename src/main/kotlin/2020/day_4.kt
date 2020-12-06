@@ -1,7 +1,6 @@
 package `2020`
 
 import java.io.File
-import java.lang.Exception
 
 
 fun main() {
