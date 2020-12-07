@@ -25,6 +25,8 @@ private fun part1(txtPasses: List<String>) {
 
 private fun part2(txtPasses: List<String>) {
     println("Part 2: ")
+    val allSeats = setOf(0, 1, 2, 3, 4, 5, 6, 7)
+
     val seats = txtPasses.map { parseBoardingPass(it) }
 
     val plane = mutableMapOf<Int, MutableSet<Int>>()
@@ -42,7 +44,6 @@ private fun part2(txtPasses: List<String>) {
         }
         if(cols.size != 8) {
             println("${row} ->  ${cols.size}  \t  ${cols}")
-            val allSeats = setOf(0, 1, 2, 3, 4, 5, 6, 7)
             val missingSeats = allSeats - cols
             val missingSeatID = row * 8 + missingSeats.toList().first()
             println("My seat ID: $missingSeatID ")
