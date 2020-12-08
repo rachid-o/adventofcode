@@ -13,7 +13,7 @@ fun main() {
     part2(lines)
 }
 
-fun part1(containers: Set<Container>) {
+private fun part1(containers: Set<Container>) {
     println("Part 1: ")
 
     val bag = "shiny gold"
