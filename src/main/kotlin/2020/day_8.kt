@@ -8,7 +8,7 @@ fun main() {
     val instructions = parseFile("$resourcePath/$inputFilename")
     println("nr of instructions in file:  ${instructions.size}")
 
-//    part1(instructions)
+    part1(instructions)
 
     part2(instructions)
 }
@@ -41,6 +41,10 @@ private fun part1(instructions: List<Instruction>) {
 private fun part2(instructions: List<Instruction>) {
     println("Part 2: ")
 
+    if(terminates(instructions)) {
+        println("Given instrutions already terminate correctly")
+        return
+    }
     var accumulator = 0
     var pointer = 0
     val processedInstructions = mutableListOf<Int>()
@@ -63,15 +67,12 @@ private fun part2(instructions: List<Instruction>) {
                 pointer++
             }
         }
-        println("\t accumulator: $accumulator  pointer: $pointer")
     }
-
-    println("\n\n\n\n ======= \n\n\n")
 
     val instructionsToModify = processedInstructions
         .filter { instructions.get(it).operation != Operation.acc }
 
-    println("Trying to see if it terminates when we modify ${instructionsToModify.size} times 1 instruction ")
+    println("Trying to see if it terminates when we modify the ${instructionsToModify.size} potential looping instructions")
     instructionsToModify.forEach { i ->
         val oldIns = instructions.get(i)
         val newIns = if(oldIns.operation == Operation.acc) {
@@ -83,11 +84,10 @@ private fun part2(instructions: List<Instruction>) {
         newInstructions.set(i, newIns)
 
         if(terminates(newInstructions)) {
-            println("Pointer $i (on line ${i+1} should be replaced!")
+            println("The instruction on line ${i+1} must be replaced!")
         }
 
     }
-
 }
 
 
