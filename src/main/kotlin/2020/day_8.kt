@@ -91,7 +91,7 @@ private fun part2(instructions: List<Instruction>) {
 }
 
 
-fun terminates(instructions: List<Instruction>): Boolean {
+private fun terminates(instructions: List<Instruction>): Boolean {
     var accumulator = 0
     var pointer = 0
     val processedInstructions = mutableSetOf<Int>()
