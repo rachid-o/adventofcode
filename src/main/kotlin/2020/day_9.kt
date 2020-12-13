@@ -13,7 +13,7 @@ fun main() {
     part2(data)
 }
 
-const val preamble = 25
+private const val preamble = 25
 
 private fun findInvalidNumber(data: List<Long>): Long? {
     for(position in preamble until data.size) {
@@ -36,7 +36,7 @@ private fun part2(data: List<Long>) {
     println("Answer: $min + $max = ${min + max}")
 }
 
-fun findSummands(
+private fun findSummands(
     nr: Long,
     prevNrs: List<Long>,
 ): List<Long> {
@@ -56,7 +56,7 @@ fun findSummands(
 }
 
 
-fun isSumOfAnyPrevs(nr: Long, prevNrs: List<Long>): Boolean {
+private fun isSumOfAnyPrevs(nr: Long, prevNrs: List<Long>): Boolean {
     prevNrs.forEach { first ->
         prevNrs.forEach { second ->
             if (first + second == nr) {
