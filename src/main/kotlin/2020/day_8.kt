@@ -118,13 +118,13 @@ private fun terminates(instructions: List<Instruction>): Boolean {
 }
 
 
-enum class Operation {
+private enum class Operation {
     acc,
     jmp,
     nop
 }
 
-data class Instruction(val operation: Operation, val argument: Int) {
+private data class Instruction(val operation: Operation, val argument: Int) {
     override fun toString() = "${operation} ${if(argument> 0) "+" else ""}$argument"
 }
 
