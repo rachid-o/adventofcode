@@ -1,5 +1,6 @@
 package `2020`
 
+import java.math.BigInteger
 import java.time.Duration
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -23,3 +24,6 @@ fun <T> printDuration(block: () -> T): T {
     log("Duration: ${duration.seconds} secs \t ($durationms ms)\t  $duration\n")
     return result
 }
+
+fun Int.toBinary() = Integer.toBinaryString(this)
+fun String.toDecimal() = BigInteger(this, 2).toLong()
