@@ -20,9 +20,8 @@ fun main() {
         }
     }
     println("${instructions.size} instructions")
-    
-    println("Part 1 answer: ${part1(instructions)}")
 
+    println("Part 1 answer: ${part1(instructions)}")
     println("Part 2 answer: ${part2(instructions)}")
 }
 
