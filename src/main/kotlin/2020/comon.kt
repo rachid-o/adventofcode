@@ -27,3 +27,7 @@ fun <T> printDuration(block: () -> T): T {
 
 fun Int.toBinary() = Integer.toBinaryString(this)
 fun String.toDecimal() = BigInteger(this, 2).toLong()
+
+fun Collection<Int>.multiply() = this.reduce { acc, i -> i * acc }
+fun Collection<Long>.multiply() = this.reduce { acc, i -> i * acc }
+
