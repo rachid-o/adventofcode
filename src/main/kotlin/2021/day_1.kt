@@ -7,7 +7,7 @@ fun main() {
     println("Reading file $resourcePath/$inputFilename")
     val report = File(resourcePath, inputFilename)
         .readLines()
-        .map { it.toInt() }
+        .map(String::toInt)
 
     println("Report size:  ${report.size}")
 
