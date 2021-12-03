@@ -1,5 +1,7 @@
 package `2020`
 
+import utils.toBinary
+import utils.toDecimal
 import java.io.File
 import java.lang.Math.pow
 

@@ -1,5 +1,7 @@
 package `2020`
 
+import utils.log
+import utils.printDuration
 import java.io.File
 import java.time.Duration
 import kotlin.system.measureTimeMillis
