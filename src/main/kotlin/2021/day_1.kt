@@ -5,7 +5,7 @@ import java.io.File
 fun main() {
     val inputFilename = "day_1.txt"
     println("Reading file $resourcePath/$inputFilename")
-    val report = File("$resourcePath/$inputFilename")
+    val report = File(resourcePath, inputFilename)
         .readLines()
         .map { it.toInt() }
 
