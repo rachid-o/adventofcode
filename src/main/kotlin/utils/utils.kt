@@ -11,7 +11,6 @@ fun log(message: Any) {
     println("$timestamp  -  $message")
 }
 
-
 /**
  * Executes the given [block] and prints the duration
  */
@@ -31,3 +30,24 @@ fun String.sorted() = this.toCharArray().sorted().joinToString("")
 fun Collection<Int>.multiply() = this.reduce { acc, i -> i * acc }
 fun Collection<Long>.multiply() = this.reduce { acc, i -> i * acc }
 
+
+// edge adjacent neighbors
+fun List<List<Int>>.edgeNeighbors(rowIndex: Int, colIndex: Int) =
+    edgeNeighborPositions(rowIndex, colIndex)
+        .map { this[it.first][it.second] }
+
+fun List<List<Int>>.edgeNeighborPositions(row: Int, col: Int) = listOf(
+    Pair(row - 1, col),
+    Pair(row, col - 1),
+    Pair(row, col + 1),
+    Pair(row + 1, col),
+)
+    .filter { it.first in this.indices && it.second in this[0].indices }
+
+fun List<List<Int>>.cornerNeighborPositions(row: Int, colIndex: Int) = listOf(
+    Pair(row - 1, colIndex - 1),
+    Pair(row - 1, colIndex + 1),
+    Pair(row + 1, colIndex - 1),
+    Pair(row + 1, colIndex + 1),
+)
+    .filter { it.first in this.indices && it.second in this[0].indices }
