@@ -1,5 +1,6 @@
 package `2021`
 
+import utils.getKey
 import utils.sorted
 import java.io.File
 
@@ -103,7 +104,3 @@ private fun decodeDigits(signalsAndOutput: Pair<List<String>, List<String>>): In
         .joinToString("")
         .toInt()
 }
-
-
-private fun <K, V> Map<K, V>.getKey(value: V) =
-    entries.firstOrNull { it.value == value }?.key

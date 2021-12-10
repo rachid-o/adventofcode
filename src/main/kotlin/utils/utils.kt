@@ -30,6 +30,9 @@ fun String.sorted() = this.toCharArray().sorted().joinToString("")
 fun Collection<Int>.multiply() = this.reduce { acc, i -> i * acc }
 fun Collection<Long>.multiply() = this.reduce { acc, i -> i * acc }
 
+fun <K, V> Map<K, V>.getKey(value: V) =
+    entries.firstOrNull { it.value == value }?.key
+
 
 // edge adjacent neighbors
 fun List<List<Int>>.edgeNeighbors(rowIndex: Int, colIndex: Int) =
