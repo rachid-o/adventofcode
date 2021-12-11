@@ -26,6 +26,7 @@ fun <T> printDuration(block: () -> T): T {
 fun Int.toBinary() = Integer.toBinaryString(this)
 fun String.toDecimal() = BigInteger(this, 2).toLong()
 fun String.sorted() = this.toCharArray().sorted().joinToString("")
+fun List<List<Number>>.toGridString() = joinToString("\n") { it.joinToString("") }
 
 fun Collection<Int>.multiply() = this.reduce { acc, i -> i * acc }
 fun Collection<Long>.multiply() = this.reduce { acc, i -> i * acc }
@@ -54,3 +55,6 @@ fun List<List<Int>>.cornerNeighborPositions(row: Int, colIndex: Int) = listOf(
     Pair(row + 1, colIndex + 1),
 )
     .filter { it.first in this.indices && it.second in this[0].indices }
+
+
+
