@@ -10,6 +10,7 @@ fun log(message: Any) {
     val timestamp = DateTimeFormatter.ofPattern("HH:mm:ss").format(ZonedDateTime.now())
     println("$timestamp  -  $message")
 }
+val NEWLINE = System.lineSeparator()
 
 /**
  * Executes the given [block] and prints the duration
