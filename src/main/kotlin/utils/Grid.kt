@@ -15,9 +15,9 @@ class Grid(input: List<List<Int>>) {
 
     fun getValue(p: Point) = area[p.row][p.col]
 
-    fun getAllNeighbors(p: Point) = edgeNeighborPoints(p) + cornerNeighborPoints(p)
+    fun getAllNeighbors(p: Point) = getEdgeNeighborPoints(p) + getCornerNeighborPoints(p)
 
-    fun edgeNeighborPoints(p: Point) = listOf(
+    fun getEdgeNeighborPoints(p: Point) = listOf(
         Point(p.row - 1, p.col),
         Point(p.row, p.col - 1),
         Point(p.row, p.col + 1),
@@ -25,7 +25,7 @@ class Grid(input: List<List<Int>>) {
     )
         .filter { it.row in this.area.indices && it.col in this.area[0].indices }
 
-    fun cornerNeighborPoints(p: Point) = listOf(
+    fun getCornerNeighborPoints(p: Point) = listOf(
         Point(p.row - 1, p.col - 1),
         Point(p.row - 1, p.col + 1),
         Point(p.row + 1, p.col - 1),

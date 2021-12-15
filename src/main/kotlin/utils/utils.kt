@@ -17,11 +17,13 @@ val NEWLINE = System.lineSeparator()
  */
 fun <T> printDuration(block: () -> T): T {
     val start = System.currentTimeMillis()
-    val result = block()
-    val durationms = System.currentTimeMillis() - start
-    val duration = Duration.ofMillis(durationms)
-    log("Duration: ${duration.seconds} secs \t ($durationms ms)\t  $duration\n")
-    return result
+    return try {
+        block()
+    } finally {
+        val durationms = System.currentTimeMillis() - start
+        val duration = Duration.ofMillis(durationms)
+        log("Duration: ${duration.seconds} secs \t ($durationms ms)\t  $duration\n")
+    }
 }
 
 fun Int.toBinary() = Integer.toBinaryString(this)
