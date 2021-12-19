@@ -1,5 +1,7 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.5.31'
+    id 'java'
+    id 'application'
 }
 
 group 'com.rachidbm'
@@ -19,3 +21,5 @@ dependencies {
     testCompile "org.junit.jupiter:junit-jupiter-params:$junitVersion"
     runtime "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
 }
+
+mainClassName = "twentyone.Day18"
