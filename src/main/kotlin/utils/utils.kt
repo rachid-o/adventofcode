@@ -27,7 +27,7 @@ fun <T> printDuration(block: () -> T): T {
 }
 
 fun Int.toBinary() = Integer.toBinaryString(this)
-fun String.toDecimal() = BigInteger(this, 2).toLong()
+fun String.toDecimal() = this.toLong(2)
 fun String.sorted() = this.toCharArray().sorted().joinToString("")
 fun List<List<Number>>.toGridString() = joinToString("\n") { it.joinToString("") }
 
