@@ -24,13 +24,13 @@ fun main() {
     println("Answer 2: $answer2")
 }
 
-fun part1(input: List<Pair<Set<Int>, Set<Int>>>): Int {
+private fun part1(input: List<Pair<Set<Int>, Set<Int>>>): Int {
     return input.count { (first, second) ->
         first.containsAll(second)  || second.containsAll(first)
     }
 }
 
-fun part2(input: List<Pair<Set<Int>, Set<Int>>>): Int {
+private fun part2(input: List<Pair<Set<Int>, Set<Int>>>): Int {
     return input.count { (first, second) ->
         first.any { second.contains(it) } || second.any { first.contains(it) }
     }
