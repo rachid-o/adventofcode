@@ -46,6 +46,6 @@ private fun part2(input: List<List<Int>>) = input
     }
 
 fun getBadge(rugsacks: List<List<Int>>): Int {
-    val potentialBadges = rugsacks.flatMap { it }.toSet()
+    val potentialBadges = rugsacks.flatten().toSet()
     return potentialBadges.find { pb -> rugsacks.all { it.contains(pb) } }!!
 }
