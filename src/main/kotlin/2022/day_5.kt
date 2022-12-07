@@ -80,7 +80,7 @@ fun parseInstructions(strInstructions: String): List<List<Int>> {
         }
 }
 
-fun parseInput(strInput: String): Map<Int, Stack<Char>> {
+private fun parseInput(strInput: String): Map<Int, Stack<Char>> {
 
     val lines = strInput.split("\n")
         .reversed()
