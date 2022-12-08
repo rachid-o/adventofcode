@@ -53,4 +53,7 @@ class Grid(input: List<List<Int>>) {
         }
 
     override fun toString() = this.area.toGridString()
+
+    fun getHeight(): Int = this.area.first().size
+    fun getWidth(): Int = this.area.size
 }
