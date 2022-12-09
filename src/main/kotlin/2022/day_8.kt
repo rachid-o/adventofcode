@@ -8,7 +8,7 @@ fun main() {
     println("Reading file $resourcePath/$inputFilename")
     val input = File(resourcePath, inputFilename)
         .readLines()
-        .map { it.toCharArray().map { it.toString().toInt() } }
+        .map { row -> row.toCharArray().map { col -> col.toString().toInt() } }
 
     val grid = Grid(input)
     println("input: \n$grid")

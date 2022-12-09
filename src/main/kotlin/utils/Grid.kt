@@ -56,4 +56,13 @@ class Grid(input: List<List<Int>>) {
 
     fun getHeight(): Int = this.area.first().size
     fun getWidth(): Int = this.area.size
+
+    companion object {
+        fun create(height: Int, width: Int): Grid {
+            val rows = (0 until height).map { rowNr ->
+                (0 until width).map { 0 }
+            }
+            return Grid(rows)
+        }
+    }
 }
