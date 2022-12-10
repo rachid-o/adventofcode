@@ -21,19 +21,19 @@ fun main() {
     println("Answer 2: $answer2")
 }
 
-private fun part1(grid: Grid): Int {
+private fun part1(grid: Grid<Int>): Int {
     return grid.getAll().keys.count { pos ->
         hasSmallerNeighbors(grid, pos)
     }
 }
 
-private fun part2(grid: Grid): Int {
+private fun part2(grid: Grid<Int>): Int {
     return grid.getAll().keys.map { pos ->
         scenicScore(grid, pos)
     }.maxOrNull()!!
 }
 
-fun scenicScore(grid: Grid, pos: Grid.Point): Int {
+fun scenicScore(grid: Grid<Int>, pos: Grid.Point): Int {
     val north = viewingDistance(grid, (pos.row downTo 0).map { pos.copy(row = it) })
     val south = viewingDistance(grid, (pos.row until  grid.getHeight()).map { pos.copy(row = it) })
     val east = viewingDistance(grid, (pos.col downTo 0).map { pos.copy(col = it) })
@@ -42,7 +42,7 @@ fun scenicScore(grid: Grid, pos: Grid.Point): Int {
     return north * south * east * west
 }
 
-fun viewingDistance(grid: Grid, range: List<Grid.Point>): Int {
+fun viewingDistance(grid: Grid<Int>, range: List<Grid.Point>): Int {
     val house = range.first()
     val height = grid.getValue(house)
     val trees = range.drop(1).map { grid.getValue(it) }
@@ -59,7 +59,7 @@ fun viewingDistance(grid: Grid, range: List<Grid.Point>): Int {
     return sum
 }
 
-private fun hasSmallerNeighbors(grid: Grid, pos: Grid.Point): Boolean {
+private fun hasSmallerNeighbors(grid: Grid<Int>, pos: Grid.Point): Boolean {
     val height = grid.getValue(pos)
     val neighbors = grid.getEdgeNeighborPoints(pos)
     if (neighbors.size < 4) {
@@ -93,7 +93,7 @@ private fun hasSmallerNeighbors(grid: Grid, pos: Grid.Point): Boolean {
 }
 
 private fun canReachBorder(
-    grid: Grid,
+    grid: Grid<Int>,
     range: List<Grid.Point>,
 ): Boolean {
 //    val house = range.first()

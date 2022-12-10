@@ -2,11 +2,8 @@ package `2022`
 
 import utils.Grid
 import java.io.File
-import java.lang.IllegalStateException
 
-const val E = 0
-const val H = 1
-const val T = 2
+const val E = '.'
 
 fun main() {
     val inputFilename = "day_9.txt"
@@ -18,85 +15,74 @@ fun main() {
             Direction.fromString(dir) to steps.toInt()
         }
 
-//    grid 5 rows, 6 cols
-//    6 x 5
-    val grid = Grid.create(600, 600)
+    val grid = Grid.create(550, 500, E)
     println("input(${input.size}): \n$input")
 
-
-    val answer1 = part1(grid, input)
+    val answer1 = countVisitsByTail(grid, input, 2)
     println("Answer 1: $answer1")
+    val answer2 = countVisitsByTail(grid, input, 10)
+    println("Answer 2: $answer2")
 
-//    val answer2 = part2(grid)
-//    println("Answer 2: $answer2")
+    check(answer1 == 6406)
+    check(answer2 == 2643)
 }
 
-private fun part1(grid: Grid, input: List<Pair<Direction, Int>>): Int {
-    var posH = Grid.Point(grid.getHeight()/2, grid.getWidth()/2)
-    var posT = posH
-    grid.update(posH, H)
-    println("initial state: \n$grid")
-
+private fun countVisitsByTail(grid: Grid<Char>, input: List<Pair<Direction, Int>>, ropeLength: Int): Int {
+    val startPoint = Grid.Point(grid.getHeight()/2, grid.getWidth()/2)
+    val rope = (0 until ropeLength).map { startPoint.copy() }.toMutableList()
     val visited = mutableListOf<Grid.Point>()
-    visited.add(posT)
 
-    input.forEachIndexed { lineNr, (dir, steps) ->
-//        println("L $lineNr: $steps to $dir")
+    input.forEach {(dir, steps) ->
         repeat(steps) {
-            val newPosH = when(dir) {
+            val head = rope[0]
+            rope[0] = when(dir) {
                 Direction.right -> {
-                    posH.copy(col = posH.col + 1)
+                    head.copy(col = head.col + 1)
                 }
                 Direction.up -> {
-                    posH.copy(row = posH.row - 1)
+                    head.copy(row = head.row - 1)
                 }
                 Direction.left -> {
-                    posH.copy(col = posH.col - 1)
+                    head.copy(col = head.col - 1)
                 }
                 Direction.down -> {
-                    posH.copy(row = posH.row + 1)
+                    head.copy(row = head.row + 1)
                 }
                 else -> throw IllegalStateException("$dir is unsupported direction for moving Head")
             }
-            grid.update(posH, E)
-            grid.update(newPosH, H)
-//          println("$grid\n")
-            posH = newPosH
 
-            if(!grid.getAllNeighbors(posT).contains(posH)) {
-                val relDir = getRelativeDir(posH, posT)
-//                println("H($posH) is now from T($posT): $relDir")
-                val newPosT = when(relDir) {
-                    Direction.left -> posT.copy(col = posT.col - 1)
-                    Direction.right -> posT.copy(col = posT.col + 1)
-                    Direction.up -> posT.copy(row = posT.row - 1)
-                    Direction.down -> posT.copy(row = posT.row + 1)
-                    Direction.middle -> posT // Do nothing
-                    Direction.upright -> posT.copy(row = posT.row - 1, col = posT.col + 1)
-                    Direction.upleft -> posT.copy(row = posT.row - 1, col = posT.col - 1)
-                    Direction.downright -> posT.copy(row = posT.row + 1, col = posT.col + 1)
-                    Direction.downleft -> posT.copy(row = posT.row + 1, col = posT.col - 1)
+            rope.drop(1).forEachIndexed { index, nextKnot ->
+                val prevKnot = rope[index]
+                if(!grid.getAllNeighbors(nextKnot).contains(prevKnot)) {
+                    rope[index+1] = when(getRelativeDir(prevKnot, nextKnot)) {
+                        Direction.left -> nextKnot.copy(col = nextKnot.col - 1)
+                        Direction.right -> nextKnot.copy(col = nextKnot.col + 1)
+                        Direction.up -> nextKnot.copy(row = nextKnot.row - 1)
+                        Direction.down -> nextKnot.copy(row = nextKnot.row + 1)
+                        Direction.middle -> nextKnot // Do nothing
+                        Direction.upright -> nextKnot.copy(row = nextKnot.row - 1, col = nextKnot.col + 1)
+                        Direction.upleft -> nextKnot.copy(row = nextKnot.row - 1, col = nextKnot.col - 1)
+                        Direction.downright -> nextKnot.copy(row = nextKnot.row + 1, col = nextKnot.col + 1)
+                        Direction.downleft -> nextKnot.copy(row = nextKnot.row + 1, col = nextKnot.col - 1)
+                    }
                 }
-                visited.add(newPosT)
-                grid.update(posT, E)
-                grid.update(newPosT, T)
-                posT = newPosT
             }
+            visited.add(rope.last())
         }
     }
-
+//    grid.print(rope)
+//    grid.print(visited)
     return visited.toSet().size
 }
 
 
 private fun getRelativeDir(posH: Grid.Point, posT: Grid.Point): Direction {
-    val relDir: Direction
-    if (posH.row < posT.row) {
-        relDir = Direction.up
+    val relDir = if (posH.row < posT.row) {
+        Direction.up
     } else if (posH.row > posT.row) {
-        relDir = Direction.down
+        Direction.down
     } else {
-        relDir = Direction.middle
+        Direction.middle
     }
 
     if (posH.col > posT.col) {
@@ -134,4 +120,19 @@ private enum class Direction(val code: String) {
     companion object {
         fun fromString(code: String): Direction = values().firstOrNull { it.code == code }!!
     }
+}
+
+
+fun Grid<Char>.print(rope: List<Grid.Point>) {
+    val grid = Grid.fromGrid(this, E)
+    var knot = rope.size
+    rope
+        .reversed()
+        .forEach { p ->
+            knot--
+            grid.update(p, Character.forDigit(knot, 10))
+        }
+    println(grid)
+    println("rope: $rope")
+    println()
 }

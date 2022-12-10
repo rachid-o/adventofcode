@@ -44,7 +44,7 @@ private fun part2(area: List<List<Int>>): Int {
     return -1
 }
 
-private fun calcNextStep(grid: Grid): Int? {
+private fun calcNextStep(grid: Grid<Int>): Int? {
     // Increase energy
     grid.getAll().forEach { (point, value) ->
         grid.update(point, value + 1)
@@ -64,7 +64,7 @@ private fun calcNextStep(grid: Grid): Int? {
     return nrOfFlashes
 }
 
-private fun flash(grid: Grid): Int {
+private fun flash(grid: Grid<Int>): Int {
     var flashes = 0
     val pointsToFlash = grid.getAll().filterValues { it == 10 }.toMutableMap()
     while (pointsToFlash.isNotEmpty()) {

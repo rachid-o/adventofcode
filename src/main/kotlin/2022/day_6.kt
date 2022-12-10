@@ -9,18 +9,16 @@ fun main() {
         .readLines()
 
     val input1 = input[0]
-
     println("input: $input1")
 
-
-    val answer1 = part1(input1, 4)
+    val answer1 = countCharsUntil(input1, 4)
     println("Answer 1: $answer1")
 
-    val answer2 = part1(input1, 14)
+    val answer2 = countCharsUntil(input1, 14)
     println("Answer 2: $answer2")
 }
 
-private fun part1(input: String, markerLength: Int): Int {
+private fun countCharsUntil(input: String, markerLength: Int): Int {
     var chars = 0
     input.windowed(markerLength)
         .forEach {
@@ -31,4 +29,3 @@ private fun part1(input: String, markerLength: Int): Int {
         }
     throw IllegalStateException("Not found")
 }
-
