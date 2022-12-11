@@ -1,7 +1,5 @@
 package util;
 
-import java.text.MessageFormat;
-
 import static java.text.MessageFormat.format;
 
 public class AoCUtils {

@@ -123,7 +123,7 @@ private enum class Direction(val code: String) {
 }
 
 
-fun Grid<Char>.print(rope: List<Grid.Point>) {
+private fun Grid<Char>.print(rope: List<Grid.Point>) {
     val grid = Grid.fromGrid(this, E)
     var knot = rope.size
     rope
