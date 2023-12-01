@@ -1,8 +1,8 @@
 package `2022`
 
+import utils.alphabet
 import java.io.File
 
-const val alphabet = "abcdefghijklmnopqrstuvwxyz"
 val prios1 = alphabet.mapIndexed { index, c ->
     c to index+1
 }.toMap()

@@ -58,5 +58,5 @@ fun List<List<Int>>.cornerNeighborPositions(row: Int, colIndex: Int) = listOf(
 )
     .filter { it.first in this.indices && it.second in this[0].indices }
 
-
+const val alphabet = "abcdefghijklmnopqrstuvwxyz"
 
