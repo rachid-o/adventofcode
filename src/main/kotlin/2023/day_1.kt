@@ -24,7 +24,7 @@ private fun part1(lines: List<String>) =
         (digits.first().toString() + digits.last().toString()).toInt()
     }
 
-val digitMap = mapOf(
+private val digitMap = mapOf(
     "one" to "one1one",
     "two" to "tw2wo",
     "three" to "thre3hree",
