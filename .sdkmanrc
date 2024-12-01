@@ -1,4 +1,4 @@
 # Enable auto-env through the sdkman_auto_env config
 # Add key=value pairs of SDKs to use below
-java=17.0.7-tem
-kotlin=1.9.21
+java=23.0.1-tem
+kotlin=2.1.0
