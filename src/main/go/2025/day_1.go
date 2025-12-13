@@ -10,7 +10,7 @@ import (
 
 func main() {
 	// file, err := os.Open("src/main/go/2025/puzzle-input.txt")
-	file, err := os.Open("day_1.txt")
+	file, err := os.Open("../../resources/2025/day_1.txt")
 	if err != nil {
 		fmt.Printf("Error opening file: %v\n", err)
 		return
