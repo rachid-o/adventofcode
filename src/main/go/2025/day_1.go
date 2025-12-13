@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"strconv"
 	"strings"
@@ -46,17 +47,18 @@ func parseInput(filename string) ([]Instruction, error) {
 	return instructions, nil
 }
 
-func solve(instructions []Instruction) int {
+func part1(instructions []Instruction) int {
 	dialPos := 50
 	zeroCount := 0
 
 	for _, inst := range instructions {
-		if inst.Direction == 'L' {
+		switch inst.Direction {
+		case 'L':
 			dialPos = (dialPos - inst.Distance) % 100
 			if dialPos < 0 {
 				dialPos += 100
 			}
-		} else if inst.Direction == 'R' {
+		case 'R':
 			dialPos = (dialPos + inst.Distance) % 100
 		}
 
@@ -67,13 +69,50 @@ func solve(instructions []Instruction) int {
 	return zeroCount
 }
 
+func part2(instructions []Instruction) int {
+	dialPos := 50
+	zeroCount := 0
+
+	for _, inst := range instructions {
+		for i := 0; i < inst.Distance; i++ {
+			switch inst.Direction {
+			case 'L':
+				dialPos--
+				if dialPos < 0 {
+					dialPos = 99
+				}
+			case 'R':
+				dialPos++
+				if dialPos > 99 {
+					dialPos = 0
+				}
+			}
+
+			if dialPos == 0 {
+				zeroCount++
+			}
+		}
+	}
+	return zeroCount
+}
+
 func main() {
-	instructions, err := parseInput("../../resources/2025/day_1.txt")
+	wd, err := os.Getwd()
 	if err != nil {
-		fmt.Printf("Error processing input: %v\n", err)
+		log.Fatal(err)
+	}
+	log.Println("Working directory:", wd)
+
+	instructions, err := parseInput("../resources/2025/day_1.txt")
+	//instructions, err := parseInput("../../resources/2025/day_1.txt")
+	if err != nil {
+		log.Printf("Error processing input: %v\n", err)
 		return
 	}
 
-	result := solve(instructions)
-	fmt.Printf("Password: %d\n", result)
+	result1 := part1(instructions)
+	log.Printf("Password Part 1: %d\n", result1)
+
+	result2 := part2(instructions)
+	log.Printf("Password Part 2: %d\n", result2)
 }
