@@ -8,51 +8,72 @@ import (
 	"strings"
 )
 
-func main() {
-	// file, err := os.Open("src/main/go/2025/puzzle-input.txt")
-	file, err := os.Open("../../resources/2025/day_1.txt")
+type Instruction struct {
+	Direction byte
+	Distance  int
+}
+
+func parseInput(filename string) ([]Instruction, error) {
+	file, err := os.Open(filename)
 	if err != nil {
-		fmt.Printf("Error opening file: %v\n", err)
-		return
+		return nil, err
 	}
 	defer file.Close()
 
+	var instructions []Instruction
 	scanner := bufio.NewScanner(file)
-	dialPos := 50
-	zeroCount := 0
-
 	for scanner.Scan() {
-		line := scanner.Text()
-		line = strings.TrimSpace(line)
+		line := strings.TrimSpace(scanner.Text())
 		if line == "" {
 			continue
 		}
 
-		direction := line[0]
-		distanceStr := line[1:]
-		distance, err := strconv.Atoi(distanceStr)
+		distance, err := strconv.Atoi(line[1:])
 		if err != nil {
-			fmt.Printf("Error parsing distance '%s': %v\n", distanceStr, err)
-			continue
+			return nil, fmt.Errorf("error parsing distance '%s': %v", line[1:], err)
 		}
 
-		if direction == 'L' {
-			dialPos = (dialPos - distance) % 100
+		instructions = append(instructions, Instruction{
+			Direction: line[0],
+			Distance:  distance,
+		})
+	}
+
+	if err := scanner.Err(); err != nil {
+		return nil, err
+	}
+
+	return instructions, nil
+}
+
+func solve(instructions []Instruction) int {
+	dialPos := 50
+	zeroCount := 0
+
+	for _, inst := range instructions {
+		if inst.Direction == 'L' {
+			dialPos = (dialPos - inst.Distance) % 100
 			if dialPos < 0 {
 				dialPos += 100
 			}
-		} else if direction == 'R' {
-			dialPos = (dialPos + distance) % 100
+		} else if inst.Direction == 'R' {
+			dialPos = (dialPos + inst.Distance) % 100
 		}
 
 		if dialPos == 0 {
 			zeroCount++
 		}
 	}
+	return zeroCount
+}
 
-	if err := scanner.Err(); err != nil {
-		fmt.Printf("Error reading file: %v\n", err)
+func main() {
+	instructions, err := parseInput("../../resources/2025/day_1.txt")
+	if err != nil {
+		fmt.Printf("Error processing input: %v\n", err)
+		return
 	}
 
-	fmt.Printf("Password: %d\n", zeroCount)
+	result := solve(instructions)
+	fmt.Printf("Password: %d\n", result)
 }
